@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service
 import xyz.luchengeng.extracurriculum.management.entity.Auth
 import xyz.luchengeng.extracurriculum.management.entity.User
 import xyz.luchengeng.extracurriculum.management.exception.NotAuthorizedException
+import xyz.luchengeng.extracurriculum.management.exception.NotFoundException
 import xyz.luchengeng.extracurriculum.management.repository.AuthRepo
 import xyz.luchengeng.extracurriculum.management.repository.UserRepo
 import java.time.Instant
@@ -27,6 +28,15 @@ class SecurityService @Autowired constructor(val userRepo: UserRepo,val authRepo
     private val issuer = env.getProperty("token.issuer")
 
     fun newUser(user : User) : User = userRepo.save(user)
+
+    fun getUser(id : Long) : User{
+        val userOpt = userRepo.findById(id)
+        if(userOpt.isPresent){
+            return userOpt.get()
+        }else{
+            throw NotFoundException()
+        }
+    }
 
     fun newAuth(auth: Auth) : Auth = authRepo.save(auth)
 

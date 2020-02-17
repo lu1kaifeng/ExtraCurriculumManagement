@@ -25,6 +25,8 @@ inline class ObjectiveDto(private val objective: Objective){
     }
 }
 
+
+
 inline class ProjectDto(private val project: Project){
     val title : String
         get() = project.title

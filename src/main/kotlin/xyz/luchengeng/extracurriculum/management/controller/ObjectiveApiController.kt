@@ -12,27 +12,37 @@ import xyz.luchengeng.extracurriculum.management.service.SecurityService
 @Controller
 class ObjectiveApiController @Autowired constructor(private val objectiveService: ObjectiveService,private val securityService: SecurityService) : ObjectiveApi {
     override fun post(objective: Objective, apiKey: String): ResponseEntity<Unit> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val user = securityService.auth("objective::post",apiKey)
+        objectiveService.new(objective)
+        return ResponseEntity.ok(Unit)
     }
 
     override fun get(id: Long, apiKey: String): ResponseEntity<ObjectiveDto> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val user = securityService.auth("objective::get",apiKey)
+        return ResponseEntity.ok(ObjectiveDto(objectiveService.get(id)))
     }
 
-    override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): PageDto<Objective> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): ResponseEntity<PageDto<Objective>> {
+        val user = securityService.auth("objective::page",apiKey)
+        return ResponseEntity.ok(PageDto(objectiveService.get(pageNo.toInt(),pageLen.toInt())))
     }
 
     override fun del(id: Long, apiKey: String): ResponseEntity<Unit> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val user = securityService.auth("objective::del",apiKey)
+        objectiveService.del(objectiveService.get(id))
+        return ResponseEntity.ok(Unit)
     }
 
     override fun appendContent(id: Long, contentId: Long, apiKey: String): ResponseEntity<Unit> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val user = securityService.auth("objective::content::append",apiKey)
+        objectiveService.appendContent(id,contentId)
+        return ResponseEntity.ok(Unit)
     }
 
     override fun dropContent(id: Long, contentId: Long, apiKey: String): ResponseEntity<Unit> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val user = securityService.auth("objective::content::drop",apiKey)
+        objectiveService.dropContent(id,contentId)
+        return ResponseEntity.ok(Unit)
     }
 
 }

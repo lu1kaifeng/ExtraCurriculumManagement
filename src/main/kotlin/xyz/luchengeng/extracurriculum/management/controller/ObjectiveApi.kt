@@ -12,18 +12,18 @@ interface ObjectiveApi {
     @RequestMapping(value = ["/objective"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun post(@RequestBody objective : Objective,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
 
-    @RequestMapping(value = ["/objective/{id}"], method = [RequestMethod.GET], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/objective/{id}"], method = [RequestMethod.GET])
     fun get(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<ObjectiveDto>
 
-    @RequestMapping(value = ["/objective/page/{pageLen}/{no}"], method = [RequestMethod.GET], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun getPage(@PathVariable("no") pageNo : Long,@PathVariable("pageLen") pageLen : Long,@RequestHeader("x-api-key") apiKey : String) : PageDto<Objective>
+    @RequestMapping(value = ["/objective/page/{pageLen}/{no}"], method = [RequestMethod.GET])
+    fun getPage(@PathVariable("no") pageNo : Long,@PathVariable("pageLen") pageLen : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<PageDto<Objective>>
 
-    @RequestMapping(value = ["/objective/{id}"], method = [RequestMethod.DELETE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/objective/{id}"], method = [RequestMethod.DELETE])
     fun del(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
 
-    @RequestMapping(value = ["/objective/{id}/content/{contentId}"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/objective/{id}/content/{contentId}"], method = [RequestMethod.POST])
     fun appendContent(@PathVariable("id") id : Long,@PathVariable("contentId") contentId : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
 
-    @RequestMapping(value = ["/objective/{id}/content/{contentId}"], method = [RequestMethod.DELETE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/objective/{id}/content/{contentId}"], method = [RequestMethod.DELETE])
     fun dropContent(@PathVariable("id") id : Long,@PathVariable("contentId") contentId : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
 }
