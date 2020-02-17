@@ -14,8 +14,14 @@ class UserApiController @Autowired constructor(private val securityService: Secu
         return ResponseEntity.ok(Unit)
     }
 
-    override fun getUser(id: Long, apiKey: String): ResponseEntity<UserDto> {
+    override fun logIn(user: User): ResponseEntity<String> {
+        return ResponseEntity.ok(securityService.logIn(user.email,user.password))
+    }
+
+    override fun getUser(id: Long, apiKey: String): ResponseEntity<User> {
         val user = securityService.auth("user::get",apiKey)
-        return ResponseEntity.ok(UserDto(securityService.getUser(id)))
+        val requested = securityService.getUser(id)
+        requested.password = ""
+        return ResponseEntity.ok(requested)
     }
 }

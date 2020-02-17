@@ -33,7 +33,7 @@ inline class ProjectDto(private val project: Project){
     val description : String
         get() = project.description
     val ownerId : Long
-        get() = project.owner.id as Long
+        get() = project.owner?.id as Long
     val participantList : List<Long>
         get() = project.participants.map {
             it.id as Long
@@ -42,6 +42,7 @@ inline class ProjectDto(private val project: Project){
         get() = project.contents.map {
             it.id as Long
         }
+    fun toEntity() = project
 }
 
 inline class PageDto<T>(private val page : Page<T>){

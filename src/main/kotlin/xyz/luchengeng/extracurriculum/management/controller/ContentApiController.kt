@@ -2,15 +2,16 @@ package xyz.luchengeng.extracurriculum.management.controller
 
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
 import xyz.luchengeng.extracurriculum.management.entity.Content
 import xyz.luchengeng.extracurriculum.management.repository.ContentStore
 import xyz.luchengeng.extracurriculum.management.service.SecurityService
-
+@Controller
 class ContentApiController constructor(private val contentStore: ContentStore,private val securityService: SecurityService) : ContentApi {
 
-    override fun post(bytes: Array<Byte>, apiKey: String, contentType: String): ResponseEntity<Content> {
+    override fun post(b64: String, apiKey: String,mime : String): ResponseEntity<Content> {
         val user = securityService.auth("content::post",apiKey)
-        return ResponseEntity.ok(contentStore.serialize(user,bytes, MediaType.parseMediaType(contentType)))
+        return ResponseEntity.ok(contentStore.serialize(user,b64,MediaType.parseMediaType(mime)))
     }
 
     override fun get(id: Long, apiKey: String): ResponseEntity<Array<Byte>> {

@@ -17,9 +17,9 @@ class ObjectiveApiController @Autowired constructor(private val objectiveService
         return ResponseEntity.ok(Unit)
     }
 
-    override fun get(id: Long, apiKey: String): ResponseEntity<ObjectiveDto> {
+    override fun get(id: Long, apiKey: String): ResponseEntity<Objective> {
         val user = securityService.auth("objective::get",apiKey)
-        return ResponseEntity.ok(ObjectiveDto(objectiveService.get(id)))
+        return ResponseEntity.ok(objectiveService.get(id))
     }
 
     override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): ResponseEntity<PageDto<Objective>> {

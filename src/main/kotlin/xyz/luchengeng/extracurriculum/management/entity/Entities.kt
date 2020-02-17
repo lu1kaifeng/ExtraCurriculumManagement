@@ -22,4 +22,4 @@ data class Objective(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id 
 data class Content(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id : Long?,val mime : MediaType?,@OneToOne val owner : User)
 
 @Entity
-data class Project(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id : Long?, var title : String, var description : String, @OneToOne val owner : User, @OneToMany val participants : MutableList<User>, @OneToOne val projectInfo : Content, @OneToMany val contents : MutableList<Content>)
+data class Project(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id : Long?, var title : String, var description : String, @OneToOne var owner : User?, @OneToMany val participants : MutableList<User>, @OneToOne val projectInfo : Content?, @OneToMany val contents : MutableList<Content>)

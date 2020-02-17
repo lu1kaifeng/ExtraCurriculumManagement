@@ -12,10 +12,10 @@ import xyz.luchengeng.extracurriculum.management.entity.Project
 interface ProjectApi {
 
     @RequestMapping(value = ["/project"], method = [RequestMethod.POST], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun post(@RequestBody project : Project,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
+    fun post(@RequestBody project : Project,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Project>
 
     @RequestMapping(value = ["/project/{id}"], method = [RequestMethod.GET])
-    fun get(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<ProjectDto>
+    fun get(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Project>
 
     @RequestMapping(value = ["/project/page/{pageLen}/{no}"], method = [RequestMethod.GET])
     fun getPage(@PathVariable("no") pageNo : Long, @PathVariable("pageLen") pageLen : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<PageDto<Project>>

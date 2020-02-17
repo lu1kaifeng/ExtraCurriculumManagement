@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.3.61"
 	kotlin("plugin.spring") version "1.3.61"
 	kotlin("plugin.jpa") version "1.3.61"
+	kotlin("plugin.serialization") version "1.3.61"
 }
 
 group = "xyz.luchengeng"
@@ -23,6 +24,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 	implementation("com.auth0:java-jwt:3.10.0")
 	implementation("io.minio:minio:6.0.13")
 	runtimeOnly("mysql:mysql-connector-java")

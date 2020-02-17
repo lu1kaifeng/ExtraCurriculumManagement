@@ -1,6 +1,7 @@
 package xyz.luchengeng.extracurriculum.management.controller
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import xyz.luchengeng.extracurriculum.management.dto.PageDto
@@ -11,15 +12,15 @@ import xyz.luchengeng.extracurriculum.management.service.SecurityService
 
 @Controller
 class ProjectApiController @Autowired constructor(private val securityService: SecurityService,private val projectService: ProjectService) : ProjectApi {
-    override fun post(project: Project, apiKey: String): ResponseEntity<Unit> {
+    override fun post(project: Project, apiKey: String): ResponseEntity<Project> {
         val user = securityService.auth("project::post",apiKey)
-        projectService.new(project)
-        return ResponseEntity.ok(Unit)
+        project.owner = user
+        return ResponseEntity.ok(projectService.new(project))
     }
 
-    override fun get(id: Long, apiKey: String): ResponseEntity<ProjectDto> {
+    override fun get(id: Long, apiKey: String): ResponseEntity<Project> {
         val user = securityService.auth("project::get",apiKey)
-        return ResponseEntity.ok(ProjectDto(projectService.get(id)))
+        return ResponseEntity.ok(projectService.get(id))
     }
 
     override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): ResponseEntity<PageDto<Project>> {

@@ -13,7 +13,7 @@ interface ObjectiveApi {
     fun post(@RequestBody objective : Objective,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
 
     @RequestMapping(value = ["/objective/{id}"], method = [RequestMethod.GET])
-    fun get(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<ObjectiveDto>
+    fun get(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Objective>
 
     @RequestMapping(value = ["/objective/page/{pageLen}/{no}"], method = [RequestMethod.GET])
     fun getPage(@PathVariable("no") pageNo : Long,@PathVariable("pageLen") pageLen : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<PageDto<Objective>>
