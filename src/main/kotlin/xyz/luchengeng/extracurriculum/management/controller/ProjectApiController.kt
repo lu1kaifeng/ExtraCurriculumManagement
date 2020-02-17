@@ -1,11 +1,11 @@
 package xyz.luchengeng.extracurriculum.management.controller
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
-import xyz.luchengeng.extracurriculum.management.dto.PageDto
-import xyz.luchengeng.extracurriculum.management.dto.ProjectDto
 import xyz.luchengeng.extracurriculum.management.entity.Project
 import xyz.luchengeng.extracurriculum.management.service.ProjectService
 import xyz.luchengeng.extracurriculum.management.service.SecurityService
@@ -23,9 +23,9 @@ class ProjectApiController @Autowired constructor(private val securityService: S
         return ResponseEntity.ok(projectService.get(id))
     }
 
-    override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): ResponseEntity<PageDto<Project>> {
+    override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): ResponseEntity<Page<Project>> {
         val user = securityService.auth("project::page",apiKey)
-        return ResponseEntity.ok(PageDto(projectService.get(pageNo.toInt(),pageLen.toInt())))
+        return ResponseEntity.ok(projectService.get(pageNo.toInt(),pageLen.toInt()))
     }
 
     override fun del(id: Long, apiKey: String): ResponseEntity<Unit> {
@@ -44,5 +44,18 @@ class ProjectApiController @Autowired constructor(private val securityService: S
         projectService.dropContent(id,contentId)
         return ResponseEntity.ok(Unit)
     }
+
+    override fun participate(id: Long, apiKey: String): ResponseEntity<Unit> {
+        val user = securityService.auth("project::participate",apiKey)
+        projectService.participate(id,user)
+        return ResponseEntity.ok(Unit)
+    }
+
+    override fun leave(id: Long, apiKey: String): ResponseEntity<Unit> {
+        val user = securityService.auth("project::leave",apiKey)
+        projectService.leave(id,user)
+        return ResponseEntity.ok(Unit)
+    }
+
 
 }

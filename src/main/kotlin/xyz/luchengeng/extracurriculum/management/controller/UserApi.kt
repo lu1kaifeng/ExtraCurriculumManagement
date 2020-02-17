@@ -3,7 +3,6 @@ package xyz.luchengeng.extracurriculum.management.controller
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import xyz.luchengeng.extracurriculum.management.dto.UserDto
 import xyz.luchengeng.extracurriculum.management.entity.User
 
 interface UserApi {

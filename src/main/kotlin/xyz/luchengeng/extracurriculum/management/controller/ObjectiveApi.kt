@@ -1,10 +1,9 @@
 package xyz.luchengeng.extracurriculum.management.controller
 
+import org.springframework.data.domain.Page
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import xyz.luchengeng.extracurriculum.management.dto.ObjectiveDto
-import xyz.luchengeng.extracurriculum.management.dto.PageDto
 import xyz.luchengeng.extracurriculum.management.entity.Objective
 
 interface ObjectiveApi {
@@ -16,7 +15,7 @@ interface ObjectiveApi {
     fun get(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Objective>
 
     @RequestMapping(value = ["/objective/page/{pageLen}/{no}"], method = [RequestMethod.GET])
-    fun getPage(@PathVariable("no") pageNo : Long,@PathVariable("pageLen") pageLen : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<PageDto<Objective>>
+    fun getPage(@PathVariable("no") pageNo : Long,@PathVariable("pageLen") pageLen : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Page<Objective>>
 
     @RequestMapping(value = ["/objective/{id}"], method = [RequestMethod.DELETE])
     fun del(@PathVariable("id")id : Long,@RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>

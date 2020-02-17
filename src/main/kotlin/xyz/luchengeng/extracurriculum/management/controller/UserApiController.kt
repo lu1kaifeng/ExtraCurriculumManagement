@@ -3,7 +3,6 @@ package xyz.luchengeng.extracurriculum.management.controller
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
-import xyz.luchengeng.extracurriculum.management.dto.UserDto
 import xyz.luchengeng.extracurriculum.management.entity.User
 import xyz.luchengeng.extracurriculum.management.service.SecurityService
 

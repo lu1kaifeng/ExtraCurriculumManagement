@@ -1,10 +1,9 @@
 package xyz.luchengeng.extracurriculum.management.controller
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
-import xyz.luchengeng.extracurriculum.management.dto.ObjectiveDto
-import xyz.luchengeng.extracurriculum.management.dto.PageDto
 import xyz.luchengeng.extracurriculum.management.entity.Objective
 import xyz.luchengeng.extracurriculum.management.service.ObjectiveService
 import xyz.luchengeng.extracurriculum.management.service.SecurityService
@@ -22,9 +21,9 @@ class ObjectiveApiController @Autowired constructor(private val objectiveService
         return ResponseEntity.ok(objectiveService.get(id))
     }
 
-    override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): ResponseEntity<PageDto<Objective>> {
+    override fun getPage(pageNo: Long, pageLen: Long, apiKey: String): ResponseEntity<Page<Objective>> {
         val user = securityService.auth("objective::page",apiKey)
-        return ResponseEntity.ok(PageDto(objectiveService.get(pageNo.toInt(),pageLen.toInt())))
+        return ResponseEntity.ok(objectiveService.get(pageNo.toInt(),pageLen.toInt()))
     }
 
     override fun del(id: Long, apiKey: String): ResponseEntity<Unit> {
