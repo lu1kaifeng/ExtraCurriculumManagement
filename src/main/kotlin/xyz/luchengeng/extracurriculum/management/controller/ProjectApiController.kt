@@ -56,6 +56,4 @@ class ProjectApiController @Autowired constructor(private val securityService: S
         projectService.leave(id,user)
         return ResponseEntity.ok(Unit)
     }
-
-
 }
