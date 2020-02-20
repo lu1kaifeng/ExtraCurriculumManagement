@@ -56,4 +56,17 @@ class ProjectApiController @Autowired constructor(private val securityService: S
         projectService.leave(id,user)
         return ResponseEntity.ok(Unit)
     }
+
+    override fun appendObjective(id: Long, objectiveId: Long, apiKey: String): ResponseEntity<Unit> {
+        val user = securityService.auth("project::objective::append",apiKey)
+        projectService.appendObjective(id,objectiveId)
+        return ResponseEntity.ok(Unit)
+    }
+
+    override fun dropObjective(id: Long, objectiveId: Long, apiKey: String): ResponseEntity<Unit> {
+        val user = securityService.auth("project::objective::append",apiKey)
+        projectService.dropObjective(id,objectiveId)
+        return ResponseEntity.ok(Unit)
+    }
+
 }

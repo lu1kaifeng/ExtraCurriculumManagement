@@ -9,8 +9,8 @@ import xyz.luchengeng.extracurriculum.management.exception.NotFoundException
 abstract class BaseEntryService <T> constructor(private val repo : JpaRepository<T,Long?>){
     fun new(entry : T) : T = repo.save(entry)
     fun del(entry : T) = repo.delete(entry)
-    fun get(id : Long) : T = repo.findById(id).orElseThrow { throw NotFoundException() }
-    fun get(page : Int, pageSize : Int, sort: Sort = Sort.unsorted()) : Page<T> {
+    open fun get(id : Long) : T = repo.findById(id).orElseThrow { throw NotFoundException() }
+    open fun get(page : Int, pageSize : Int, sort: Sort = Sort.unsorted()) : Page<T> {
         return repo.findAll(PageRequest.of(page,pageSize,sort))
     }
     abstract fun appendContent(id : Long,contentId : Long)

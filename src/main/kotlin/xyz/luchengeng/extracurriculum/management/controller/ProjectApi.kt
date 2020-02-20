@@ -33,4 +33,10 @@ interface ProjectApi {
 
     @RequestMapping(value = ["/project/{id}/participation"], method = [RequestMethod.DELETE])
     fun leave(@PathVariable("id") id : Long, @RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
+
+    @RequestMapping(value = ["/project/{id}/objective/{objectiveId}"], method = [RequestMethod.POST])
+    fun appendObjective(@PathVariable("id") id : Long, @PathVariable("objectiveId") objectiveId : Long, @RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
+
+    @RequestMapping(value = ["/project/{id}/objective/{objectiveId}"], method = [RequestMethod.DELETE])
+    fun dropObjective(@PathVariable("id") id : Long, @PathVariable("objectiveId") objectiveId : Long, @RequestHeader("x-api-key") apiKey : String) : ResponseEntity<Unit>
 }
