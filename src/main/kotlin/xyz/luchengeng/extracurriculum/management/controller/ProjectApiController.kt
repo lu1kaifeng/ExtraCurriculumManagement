@@ -2,8 +2,6 @@ package xyz.luchengeng.extracurriculum.management.controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import xyz.luchengeng.extracurriculum.management.entity.Project
@@ -15,7 +13,7 @@ class ProjectApiController @Autowired constructor(private val securityService: S
     override fun post(project: Project, apiKey: String): ResponseEntity<Project> {
         val user = securityService.auth("project::post",apiKey)
         project.owner = user
-        return ResponseEntity.ok(projectService.new(project))
+        return ResponseEntity.ok(projectService.save(project))
     }
 
     override fun get(id: Long, apiKey: String): ResponseEntity<Project> {

@@ -9,6 +9,7 @@ import com.auth0.jwt.interfaces.DecodedJWT
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.env.Environment
 import org.springframework.data.domain.Example
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import xyz.luchengeng.extracurriculum.management.entity.Auth
 import xyz.luchengeng.extracurriculum.management.entity.User
@@ -65,7 +66,7 @@ class SecurityService @Autowired constructor(val userRepo: UserRepo,val authRepo
                     .withIssuer(this.issuer)
                     .build() //Reusable verifier instance
             val jwt: DecodedJWT = verifier.verify(token)
-            val user = userRepo.findById(jwt.subject.toLong()).orElseThrow{throw NotAuthorizedException()}
+            val user = userRepo.findByIdOrNull(jwt.subject.toLong())?:throw NotAuthorizedException()
             if(!this.auth(target,user)) throw NotAuthorizedException()
             return user
         } catch (exception: JWTVerificationException) { //Invalid signature/claims
@@ -74,7 +75,7 @@ class SecurityService @Autowired constructor(val userRepo: UserRepo,val authRepo
     }
 
     fun logIn(email : String,password : String) : String {
-        val user = userRepo.findOne(Example.of(User(null,email,password,null,null))).orElseThrow { throw NotAuthorizedException() }
+        val user = userRepo.findOneByEmailAndPassword(email,password)?:throw NotAuthorizedException()
         try {
             val algorithm: Algorithm = Algorithm.HMAC256(this.secret)
             return JWT.create()

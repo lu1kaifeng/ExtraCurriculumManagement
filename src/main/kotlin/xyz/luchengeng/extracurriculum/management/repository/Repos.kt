@@ -13,7 +13,9 @@ import java.io.*
 
 
 @Repository
-interface UserRepo : JpaRepository<User,Long?>
+interface UserRepo : JpaRepository<User,Long?>{
+    fun findOneByEmailAndPassword(email : String,password :String) : User?
+}
 
 @Repository
 interface AuthRepo : JpaRepository<Auth,Long?>

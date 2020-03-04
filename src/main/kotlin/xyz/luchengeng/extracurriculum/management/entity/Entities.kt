@@ -27,8 +27,8 @@ data class Auth(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id : Lon
 data class Objective(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id : Long?,
                      var title : String,
                      var description : String,
-                     @OneToOne val owner : User,
-                     @OneToOne val objectiveInfo : Content,
+                     @OneToOne var owner : User?,
+                     @OneToOne val objectiveInfo : Content?,
                      @OneToMany val contents : MutableList<Content>)
 
 @Entity
@@ -39,7 +39,8 @@ data class Content(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id : 
 @Entity
 data class Project(@Id @GeneratedValue(strategy = GenerationType.AUTO) val id : Long?,
                    var title : String,
-                   var description : String, @OneToOne var owner : User,
+                   var description : String,
+                   @OneToOne var owner : User?,
                    @OneToMany val participants : MutableList<User>,
                    @OneToOne val projectInfo : Content?,
                    @OneToMany val objectives : MutableList<Objective>,

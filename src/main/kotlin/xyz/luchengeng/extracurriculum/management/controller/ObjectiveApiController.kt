@@ -12,7 +12,8 @@ import xyz.luchengeng.extracurriculum.management.service.SecurityService
 class ObjectiveApiController @Autowired constructor(private val objectiveService: ObjectiveService,private val securityService: SecurityService) : ObjectiveApi {
     override fun post(objective: Objective, apiKey: String): ResponseEntity<Unit> {
         val user = securityService.auth("objective::post",apiKey)
-        objectiveService.new(objective)
+        objective.owner = user
+        objectiveService.save(objective)
         return ResponseEntity.ok(Unit)
     }
 
